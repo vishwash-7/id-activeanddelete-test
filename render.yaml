@@ -1,0 +1,24 @@
+services:
+  - type: worker
+    name: id-inactive-deleted-bot
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: OWNER_IDS
+        value: "6195715245"
+      - key: DB_PATH
+        value: /var/data/id_inactive_deleted.sqlite3
+      - key: ACTIVITY_DAYS
+        value: "13"
+      - key: WARNING_HOURS
+        value: "24"
+      - key: CHECK_INTERVAL_MINUTES
+        value: "60"
+    disk:
+      name: id-inactive-deleted-data
+      mountPath: /var/data
+      sizeGB: 1
